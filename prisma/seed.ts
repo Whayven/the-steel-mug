@@ -124,7 +124,7 @@ async function main() {
           description: "House-baked with walnuts and a hint of cinnamon.",
           price: 4.0,
           assets: [
-            { url: "https://images.unsplash.com/photo-1605090930601-82a0da40bd4f?w=800&q=80", featured: true },
+            { url: "https://images.unsplash.com/photo-1595348020949-87cdfbb44174?w=800&q=80", featured: true },
           ],
         },
         {
@@ -132,7 +132,7 @@ async function main() {
           description: "House granola with yogurt, honey, and seasonal fruit.",
           price: 8.0,
           assets: [
-            { url: "https://images.unsplash.com/photo-1511690743698-d9d18f7e20f1?w=800&q=80", featured: true },
+            { url: "https://images.unsplash.com/photo-1546548970-71785318a17b?w=800&q=80", featured: true },
           ],
         },
       ],
@@ -163,21 +163,16 @@ async function main() {
         },
       });
 
-      // Seed assets if none exist yet
-      const existingAssets = await db.menuItemAsset.count({
-        where: { menuItemId: menuItem.id },
-      });
-
-      if (existingAssets === 0) {
-        for (const asset of item.assets) {
-          await db.menuItemAsset.create({
-            data: {
-              url: asset.url,
-              featured: asset.featured,
-              menuItemId: menuItem.id,
-            },
-          });
-        }
+      // Replace assets on every seed run to pick up URL fixes
+      await db.menuItemAsset.deleteMany({ where: { menuItemId: menuItem.id } });
+      for (const asset of item.assets) {
+        await db.menuItemAsset.create({
+          data: {
+            url: asset.url,
+            featured: asset.featured,
+            menuItemId: menuItem.id,
+          },
+        });
       }
     }
   }

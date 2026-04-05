@@ -67,17 +67,17 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
 
   return (
     <div className="group grain relative flex items-start justify-between gap-4 overflow-hidden rounded-xl border border-cream-300/60 bg-cream-50 p-5 shadow-sm transition hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900">
-      {/* Hover image */}
+      {/* Background image — teased at rest, fully revealed on hover */}
       {item.imageUrl && (
-        <div className="pointer-events-none absolute inset-0 z-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <div className="pointer-events-none absolute inset-0 z-0">
           <Image
             src={item.imageUrl}
             alt=""
             fill
-            className="object-cover"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, 350px"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/90 via-zinc-900/60 to-zinc-900/30" />
+          <div className="absolute inset-0 bg-linear-to-r from-cream-50 via-cream-50/95 to-cream-50/80 transition-all duration-300 group-hover:from-zinc-900/90 group-hover:via-zinc-900/60 group-hover:to-zinc-900/30 dark:from-zinc-900 dark:via-zinc-900/95 dark:to-zinc-900/80 dark:group-hover:from-zinc-900/90 dark:group-hover:via-zinc-900/60 dark:group-hover:to-zinc-900/30" />
         </div>
       )}
 
