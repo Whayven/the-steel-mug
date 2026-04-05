@@ -1,89 +1,135 @@
-import { headers } from "next/headers";
+import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
-import { LatestPost } from "~/app/_components/post";
-import { auth } from "~/server/better-auth";
+import computerCoffee from "~/app/_assets/computer-coffee.png";
+import earnPoints from "~/app/_assets/earn-points.png";
+import emptyStreet from "~/app/_assets/empty-street.png";
 import { getSession } from "~/server/better-auth/server";
-import { api, HydrateClient } from "~/trpc/server";
 
 export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
   const session = await getSession();
 
-  if (session) {
-    void api.post.getLatest.prefetch();
-  }
-
   return (
-    <HydrateClient>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-            Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-          </h1>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/usage/first-steps"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">First Steps →</h3>
-              <div className="text-lg">
-                Just the basics - Everything you need to know to set up your
-                database and authentication.
-              </div>
-            </Link>
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/introduction"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">Documentation →</h3>
-              <div className="text-lg">
-                Learn more about Create T3 App, the libraries it uses, and how
-                to deploy it.
-              </div>
-            </Link>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">
-              {hello ? hello.greeting : "Loading tRPC query..."}
+    <main className="min-h-screen bg-cream-100 dark:bg-zinc-950">
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-cream-50 dark:bg-zinc-900">
+        <div className="mx-auto flex max-w-5xl flex-col-reverse items-center gap-8 px-4 py-16 sm:py-24 lg:flex-row lg:gap-16">
+          <div className="flex-1 text-center lg:text-left">
+            <h1 className="text-4xl font-extrabold tracking-tight text-zinc-900 sm:text-5xl dark:text-white">
+              Welcome to{" "}
+              <span className="text-brand-500 dark:text-brand-400">
+                The Steel Mug
+              </span>
+            </h1>
+            <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
+              Great coffee, good people. Drop in, grab your favourite brew, and
+              earn points just by being part of the community.
             </p>
-
-            <div className="flex flex-col items-center justify-center gap-4">
-              <p className="text-center text-2xl text-white">
-                {session && <span>Logged in as {session.user?.name}</span>}
-              </p>
-              {!session ? (
+            <div className="mt-8 flex flex-wrap justify-center gap-4 lg:justify-start">
+              <Link
+                href="/menu"
+                className="rounded-lg bg-brand-500 px-6 py-3 font-semibold text-white shadow-sm transition hover:bg-brand-600 dark:bg-brand-400 dark:text-zinc-900 dark:hover:bg-brand-300"
+              >
+                View Menu
+              </Link>
+              {!session && (
                 <Link
-                  href="/sign-in"
-                  className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
+                  href="/sign-up"
+                  className="rounded-lg border border-cream-300 bg-cream-50 px-6 py-3 font-semibold text-zinc-700 shadow-sm transition hover:bg-cream-200 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700"
                 >
-                  Sign in
+                  Join Us
                 </Link>
-              ) : (
-                <form>
-                  <button
-                    className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
-                    formAction={async () => {
-                      "use server";
-                      await auth.api.signOut({
-                        headers: await headers(),
-                      });
-                      redirect("/");
-                    }}
-                  >
-                    Sign out
-                  </button>
-                </form>
               )}
             </div>
           </div>
-
-          {session?.user && <LatestPost />}
+          <div className="flex-1">
+            <Image
+              src={computerCoffee}
+              alt="A retro computer with a cup of coffee"
+              className="mx-auto w-full max-w-sm drop-shadow-lg"
+              priority
+            />
+          </div>
         </div>
-      </main>
-    </HydrateClient>
+      </section>
+
+      {/* Features */}
+      <section className="mx-auto max-w-5xl px-4 py-16 sm:py-24">
+        <h2 className="mb-12 text-center text-2xl font-bold text-zinc-900 dark:text-white">
+          Why people love{" "}
+          <span className="text-brand-500 dark:text-brand-400">
+            The Steel Mug
+          </span>
+        </h2>
+
+        <div className="grid gap-10 md:grid-cols-3">
+          {/* Card 1 */}
+          <div className="flex flex-col items-center rounded-2xl border border-cream-300 bg-cream-50 p-6 text-center shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <Image
+              src={earnPoints}
+              alt="Earn points illustration"
+              className="mb-6 h-40 w-40 object-contain"
+            />
+            <h3 className="text-lg font-bold text-zinc-900 dark:text-white">
+              Earn Points
+            </h3>
+            <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+              Like your favourite drinks and food to rack up points and show the
+              community what&apos;s trending.
+            </p>
+          </div>
+
+          {/* Card 2 */}
+          <div className="flex flex-col items-center rounded-2xl border border-cream-300 bg-cream-50 p-6 text-center shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <Image
+              src={emptyStreet}
+              alt="City street illustration"
+              className="mb-6 h-40 w-40 object-contain"
+            />
+            <h3 className="text-lg font-bold text-zinc-900 dark:text-white">
+              Your Neighbourhood Spot
+            </h3>
+            <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+              A warm corner on every block. Pop in before work, after class, or
+              whenever you need a reset.
+            </p>
+          </div>
+
+          {/* Card 3 */}
+          <div className="flex flex-col items-center rounded-2xl border border-cream-300 bg-cream-50 p-6 text-center shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <Image
+              src={computerCoffee}
+              alt="Work and coffee illustration"
+              className="mb-6 h-40 w-40 object-contain"
+            />
+            <h3 className="text-lg font-bold text-zinc-900 dark:text-white">
+              Work-Friendly
+            </h3>
+            <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+              Fast Wi-Fi, plenty of outlets, and all the caffeine you need to
+              power through your day.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="border-t border-cream-200 bg-cream-50 dark:border-zinc-800 dark:bg-zinc-900">
+        <div className="mx-auto flex max-w-3xl flex-col items-center px-4 py-16 text-center">
+          <h2 className="text-2xl font-bold text-zinc-900 dark:text-white">
+            Ready for a great cup?
+          </h2>
+          <p className="mt-3 text-zinc-500 dark:text-zinc-400">
+            Check out what we&apos;re serving and find your new go-to order.
+          </p>
+          <Link
+            href="/menu"
+            className="mt-8 rounded-lg bg-brand-500 px-8 py-3 font-semibold text-white shadow-sm transition hover:bg-brand-600 dark:bg-brand-400 dark:text-zinc-900 dark:hover:bg-brand-300"
+          >
+            Browse the Menu
+          </Link>
+        </div>
+      </section>
+    </main>
   );
 }

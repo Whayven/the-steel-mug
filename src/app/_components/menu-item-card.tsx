@@ -44,7 +44,7 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
   });
 
   return (
-    <div className="flex items-start justify-between gap-4 rounded-xl border border-zinc-200 bg-white p-4 shadow-xs dark:border-zinc-700 dark:bg-zinc-800">
+    <div className="flex items-start justify-between gap-4 rounded-xl border border-cream-300 bg-cream-50 p-4 shadow-xs dark:border-zinc-700 dark:bg-zinc-800">
       <div className="min-w-0">
         <p className="font-semibold text-zinc-900 dark:text-white">{item.name}</p>
         {item.description && (
