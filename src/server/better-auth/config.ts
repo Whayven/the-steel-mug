@@ -5,6 +5,8 @@ import { env } from "~/env";
 import { db } from "~/server/db";
 
 export const auth = betterAuth({
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  baseURL: env.BETTER_AUTH_URL,
   database: prismaAdapter(db, {
     provider: "postgresql", // or "sqlite" or "mysql"
   }),
@@ -15,7 +17,6 @@ export const auth = betterAuth({
     github: {
       clientId: env.BETTER_AUTH_GITHUB_CLIENT_ID,
       clientSecret: env.BETTER_AUTH_GITHUB_CLIENT_SECRET,
-      redirectURI: "http://localhost:3000/api/auth/callback/github",
     },
   },
 });
