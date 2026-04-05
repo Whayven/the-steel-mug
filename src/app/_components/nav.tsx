@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { getSession } from "~/server/better-auth/server";
+import { CartCount } from "./cart-count";
 import { SignOutButton } from "./sign-out-button";
 import { ThemeToggle } from "./theme-toggle";
 import { UserPoints } from "./user-points";
@@ -27,6 +28,7 @@ export async function Nav() {
           <ThemeToggle />
           {session ? (
             <>
+              <CartCount />
               <UserPoints />
               <span className="text-sm font-medium text-zinc-900 dark:text-white">
                 {session.user.name}

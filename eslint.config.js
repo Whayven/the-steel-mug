@@ -1,8 +1,12 @@
 import { FlatCompat } from "@eslint/eslintrc";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import tseslint from "typescript-eslint";
 
+const rootDir = path.dirname(fileURLToPath(import.meta.url));
+
 const compat = new FlatCompat({
-  baseDirectory: import.meta.dirname,
+  baseDirectory: rootDir,
 });
 
 export default tseslint.config(
@@ -19,8 +23,8 @@ export default tseslint.config(
     ],
     languageOptions: {
       parserOptions: {
-        project: ["./tsconfig.eslint.json"],
-        tsconfigRootDir: import.meta.dirname,
+        project: [path.join(rootDir, "tsconfig.json")],
+        tsconfigRootDir: rootDir,
       },
     },
     rules: {
