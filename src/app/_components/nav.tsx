@@ -10,15 +10,18 @@ export async function Nav() {
   const session = await getSession();
 
   return (
-    <nav className="border-b border-cream-200 bg-cream-50 dark:border-zinc-800 dark:bg-zinc-900">
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-        <div className="flex items-center gap-6">
-          <Link href="/" className="font-bold text-brand-600 dark:text-brand-400">
+    <nav className="border-b border-cream-300/60 bg-cream-50 dark:border-zinc-800 dark:bg-zinc-950">
+      <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
+        <div className="flex items-center gap-8">
+          <Link
+            href="/"
+            className="font-serif text-xl font-bold tracking-tight text-zinc-900 dark:text-cream-100"
+          >
             The Steel Mug
           </Link>
           <Link
             href="/menu"
-            className="text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
+            className="text-sm font-medium uppercase tracking-widest text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-white"
           >
             Menu
           </Link>
@@ -38,7 +41,7 @@ export async function Nav() {
           ) : (
             <Link
               href="/sign-in"
-              className="rounded-md bg-brand-500 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-600 dark:bg-brand-400 dark:text-zinc-900 dark:hover:bg-brand-300"
+              className="rounded-md bg-zinc-900 px-4 py-1.5 text-sm font-medium text-cream-50 transition hover:bg-zinc-700 dark:bg-cream-100 dark:text-zinc-900 dark:hover:bg-cream-200"
             >
               Sign in
             </Link>

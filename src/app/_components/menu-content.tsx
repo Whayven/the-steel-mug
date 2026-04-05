@@ -18,7 +18,7 @@ export function MenuContent() {
     <div className="space-y-10">
       {categories.map((cat) => (
         <section key={cat.id}>
-          <h2 className="mb-4 text-xl font-bold text-zinc-900 dark:text-white">{cat.name}</h2>
+          <h2 className="mb-4 font-serif text-2xl font-bold text-zinc-900 dark:text-cream-50">{cat.name}</h2>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {cat.items.map((item) => (
               <MenuItemCard key={item.id} item={item} />

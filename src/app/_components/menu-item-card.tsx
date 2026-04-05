@@ -59,13 +59,17 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
   });
 
   return (
-    <div className="flex items-start justify-between gap-4 rounded-xl border border-cream-300 bg-cream-50 p-4 shadow-xs dark:border-zinc-700 dark:bg-zinc-800">
+    <div className="grain relative flex items-start justify-between gap-4 rounded-xl border border-cream-300/60 bg-cream-50 p-5 shadow-sm transition hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900">
       <div className="min-w-0">
-        <p className="font-semibold text-zinc-900 dark:text-white">{item.name}</p>
+        <p className="font-serif text-lg font-semibold text-zinc-900 dark:text-cream-50">
+          {item.name}
+        </p>
         {item.description && (
-          <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">{item.description}</p>
+          <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
+            {item.description}
+          </p>
         )}
-        <span className="mt-1.5 inline-block text-sm font-semibold text-zinc-700 dark:text-zinc-300">
+        <span className="mt-2 inline-block text-sm font-semibold text-brand-700 dark:text-brand-400">
           ${item.price.toFixed(2)}
         </span>
       </div>
@@ -75,18 +79,18 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
           disabled={toggleLike.isPending}
           className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-sm font-medium transition ${
             item.liked
-              ? "bg-amber-100 text-amber-700 hover:bg-amber-200 dark:bg-amber-900/40 dark:text-amber-400"
-              : "bg-zinc-100 text-zinc-500 hover:bg-zinc-200 dark:bg-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-600"
+              ? "bg-brand-100 text-brand-700 hover:bg-brand-200 dark:bg-brand-700/30 dark:text-brand-400"
+              : "bg-cream-200 text-zinc-500 hover:bg-cream-300 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700"
           }`}
           aria-label={item.liked ? "Unlike" : "Like"}
         >
-          <span>{item.liked ? "♥" : "♡"}</span>
+          <span>{item.liked ? "\u2665" : "\u2661"}</span>
           <span>{item.likeCount}</span>
         </button>
         <button
           onClick={() => addToCart.mutate({ itemId: item.id })}
           disabled={addToCart.isPending}
-          className="rounded-full bg-brand-500 px-3 py-1 text-sm font-medium text-white transition hover:bg-brand-600 disabled:opacity-50 dark:bg-brand-400 dark:text-zinc-900 dark:hover:bg-brand-300"
+          className="rounded-full bg-zinc-900 px-3 py-1 text-sm font-medium text-cream-50 transition hover:bg-zinc-700 disabled:opacity-50 dark:bg-cream-100 dark:text-zinc-900 dark:hover:bg-cream-200"
         >
           + Add
         </button>

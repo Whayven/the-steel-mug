@@ -1,7 +1,7 @@
 import "~/styles/globals.css";
 
 import { type Metadata } from "next";
-import { Geist } from "next/font/google";
+import { DM_Sans, Playfair_Display } from "next/font/google";
 
 import { Toaster } from "sonner";
 
@@ -17,16 +17,25 @@ export const metadata: Metadata = {
   ],
 };
 
-const geist = Geist({
+const display = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-geist-sans",
+  variable: "--font-display",
+});
+
+const body = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-body",
 });
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${display.variable} ${body.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script
           dangerouslySetInnerHTML={{

@@ -6,9 +6,7 @@ import { toast } from "sonner";
 
 import { Button } from "~/app/_components/ui/catalyst/button";
 import { Field, FieldGroup, Fieldset, Label } from "~/app/_components/ui/catalyst/fieldset";
-import { Heading } from "~/app/_components/ui/catalyst/heading";
 import { Input } from "~/app/_components/ui/catalyst/input";
-import { Text, TextLink } from "~/app/_components/ui/catalyst/text";
 import { authClient } from "~/server/better-auth/client";
 
 export default function SignUpPage() {
@@ -42,14 +40,24 @@ export default function SignUpPage() {
   }
 
   return (
-    <main className="flex min-h-dvh flex-col">
-      <div className="flex grow items-center justify-center lg:shadow-xs lg:ring-1 lg:ring-zinc-950/5 dark:lg:bg-zinc-900 dark:lg:ring-white/10">
-        <div className="w-full max-w-sm">
-          <Heading>Create an account</Heading>
-          <Text className="mt-2">
+    <main className="flex min-h-dvh flex-col bg-cream-100 dark:bg-zinc-950">
+      <div className="flex grow items-center justify-center px-4">
+        <div className="grain relative w-full max-w-sm rounded-2xl border border-cream-300/60 bg-cream-50 p-8 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+          <p className="mb-1 text-xs font-semibold uppercase tracking-[0.25em] text-brand-600 dark:text-brand-400">
+            Join the community
+          </p>
+          <h1 className="font-serif text-3xl font-bold text-zinc-900 dark:text-cream-50">
+            Create an account
+          </h1>
+          <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
             Already have an account?{" "}
-            <TextLink href="/sign-in">Sign in</TextLink>
-          </Text>
+            <a
+              href="/sign-in"
+              className="font-medium text-brand-600 underline decoration-brand-300 underline-offset-2 hover:text-brand-700 dark:text-brand-400 dark:decoration-brand-600 dark:hover:text-brand-300"
+            >
+              Sign in
+            </a>
+          </p>
 
           <form onSubmit={handleSubmit} className="mt-8">
             <Fieldset>
@@ -97,10 +105,8 @@ export default function SignUpPage() {
           </form>
 
           <div className="mt-6">
-            <div className="relative flex items-center">
-              <div className="grow border-t border-zinc-950/10 dark:border-white/10" />
-              <span className="mx-4 shrink-0 text-sm text-zinc-500 dark:text-zinc-400">or</span>
-              <div className="grow border-t border-zinc-950/10 dark:border-white/10" />
+            <div className="bk-divider text-xs text-zinc-400 dark:text-zinc-600">
+              <span>or</span>
             </div>
             <Button
               outline

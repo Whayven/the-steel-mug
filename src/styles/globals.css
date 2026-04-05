@@ -3,22 +3,34 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-serif: var(--font-display), ui-serif, Georgia, serif;
 
-  --color-brand-50: #fffbeb;
-  --color-brand-100: #fef3c7;
-  --color-brand-200: #fde68a;
-  --color-brand-300: #fcd34d;
-  --color-brand-400: #fbbf24;
-  --color-brand-500: #f59e0b;
-  --color-brand-600: #d97706;
-  --color-brand-700: #b45309;
+  /* Espresso-inspired palette */
+  --color-brand-50: #fdf5ef;
+  --color-brand-100: #f9e4d0;
+  --color-brand-200: #f2c9a1;
+  --color-brand-300: #e5a76b;
+  --color-brand-400: #d4843e;
+  --color-brand-500: #c06a28;
+  --color-brand-600: #a8531e;
+  --color-brand-700: #8b3f18;
 
-  --color-cream-50: #fefcf7;
-  --color-cream-100: #fdf8ee;
-  --color-cream-200: #f9f0db;
-  --color-cream-300: #f2e4c2;
+  /* Warm parchment backgrounds */
+  --color-cream-50: #faf6f0;
+  --color-cream-100: #f5ede0;
+  --color-cream-200: #ebe0cc;
+  --color-cream-300: #ddd0b4;
+
+  /* Sage green accent */
+  --color-sage-50: #f4f6f0;
+  --color-sage-100: #e5eadb;
+  --color-sage-200: #cdd7b9;
+  --color-sage-300: #adbf90;
+  --color-sage-400: #8fa86d;
+  --color-sage-500: #6e8a4e;
+  --color-sage-600: #566d3c;
 
   --color-silver-50: #f8f9fa;
   --color-silver-100: #f1f3f5;
@@ -26,4 +38,42 @@
   --color-silver-300: #dee2e6;
   --color-silver-400: #ced4da;
   --color-silver-500: #adb5bd;
+}
+
+/* Grain texture overlay for atmospheric depth */
+@layer base {
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+  }
+
+  :where(.dark) .grain::after {
+    opacity: 0.05;
+  }
+
+  /* Decorative divider */
+  .bk-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--color-cream-300);
+  }
+
+  .bk-divider::before,
+  .bk-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: currentColor;
+  }
+
+  :where(.dark) .bk-divider {
+    color: #3f3f46; /* zinc-700 */
+  }
 }
