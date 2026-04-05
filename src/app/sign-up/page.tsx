@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 import { Button } from "~/app/_components/ui/catalyst/button";
 import { Field, FieldGroup, Fieldset, Label } from "~/app/_components/ui/catalyst/fieldset";
@@ -32,13 +33,17 @@ export default function SignUpPage() {
       setError(err.message ?? "Sign up failed");
       setLoading(false);
     } else {
+      toast.success("Account created! Welcome to The Steel Mug.", {
+        position: "top-center",
+      });
       router.push("/");
+      router.refresh();
     }
   }
 
   return (
-    <main className="flex min-h-dvh flex-col p-2">
-      <div className="flex grow items-center justify-center p-6 lg:rounded-lg lg:bg-white lg:p-10 lg:shadow-xs lg:ring-1 lg:ring-zinc-950/5 dark:lg:bg-zinc-900 dark:lg:ring-white/10">
+    <main className="flex min-h-dvh flex-col">
+      <div className="flex grow items-center justify-center lg:shadow-xs lg:ring-1 lg:ring-zinc-950/5 dark:lg:bg-zinc-900 dark:lg:ring-white/10">
         <div className="w-full max-w-sm">
           <Heading>Create an account</Heading>
           <Text className="mt-2">
