@@ -2,7 +2,6 @@ import { headers } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { GitHubSignInButton } from "~/app/_components/github-sign-in-button";
 import { LatestPost } from "~/app/_components/post";
 import { auth } from "~/server/better-auth";
 import { getSession } from "~/server/better-auth/server";
@@ -57,7 +56,12 @@ export default async function Home() {
                 {session && <span>Logged in as {session.user?.name}</span>}
               </p>
               {!session ? (
-                <GitHubSignInButton />
+                <Link
+                  href="/sign-in"
+                  className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
+                >
+                  Sign in
+                </Link>
               ) : (
                 <form>
                   <button
