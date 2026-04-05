@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import { toast } from "sonner";
 import { api } from "~/trpc/react";
 
@@ -10,6 +12,7 @@ type MenuItem = {
   price: number;
   likeCount: number;
   liked: boolean;
+  imageUrl: string | null;
 };
 
 export function MenuItemCard({ item }: { item: MenuItem }) {
@@ -25,10 +28,14 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
           ...cat,
           items: cat.items.map((i) =>
             i.id === itemId
-              ? { ...i, liked: !i.liked, likeCount: i.likeCount + (i.liked ? -1 : 1) }
-              : i
+              ? {
+                  ...i,
+                  liked: !i.liked,
+                  likeCount: i.likeCount + (i.liked ? -1 : 1),
+                }
+              : i,
           ),
-        }))
+        })),
       );
 
       return { prev };
@@ -59,28 +66,45 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
   });
 
   return (
-    <div className="grain relative flex items-start justify-between gap-4 rounded-xl border border-cream-300/60 bg-cream-50 p-5 shadow-sm transition hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900">
-      <div className="min-w-0">
-        <p className="font-serif text-lg font-semibold text-zinc-900 dark:text-cream-50">
+    <div className="group grain relative flex items-start justify-between gap-4 overflow-hidden rounded-xl border border-cream-300/60 bg-cream-50 p-5 shadow-sm transition hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900">
+      {/* Hover image */}
+      {item.imageUrl && (
+        <div className="pointer-events-none absolute inset-0 z-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <Image
+            src={item.imageUrl}
+            alt=""
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 350px"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/90 via-zinc-900/60 to-zinc-900/30" />
+        </div>
+      )}
+
+      <div className="relative z-10 min-w-0">
+        <Link
+          href={`/menu/${item.id}`}
+          className="font-serif text-lg font-semibold text-zinc-900 underline decoration-cream-300 underline-offset-2 transition hover:decoration-brand-400 group-hover:text-white group-hover:decoration-white/40 dark:text-cream-50 dark:decoration-zinc-700 dark:hover:decoration-brand-400"
+        >
           {item.name}
-        </p>
+        </Link>
         {item.description && (
-          <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="mt-0.5 text-sm text-zinc-500 transition-colors group-hover:text-zinc-300 dark:text-zinc-400">
             {item.description}
           </p>
         )}
-        <span className="mt-2 inline-block text-sm font-semibold text-brand-700 dark:text-brand-400">
+        <span className="mt-2 inline-block text-sm font-semibold text-brand-700 transition-colors group-hover:text-brand-300 dark:text-brand-400">
           ${item.price.toFixed(2)}
         </span>
       </div>
-      <div className="flex shrink-0 flex-col items-end gap-2">
+      <div className="relative z-10 flex shrink-0 flex-col items-end gap-2">
         <button
           onClick={() => toggleLike.mutate({ itemId: item.id })}
           disabled={toggleLike.isPending}
           className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-sm font-medium transition ${
             item.liked
-              ? "bg-brand-100 text-brand-700 hover:bg-brand-200 dark:bg-brand-700/30 dark:text-brand-400"
-              : "bg-cream-200 text-zinc-500 hover:bg-cream-300 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700"
+              ? "bg-brand-100 text-brand-700 hover:bg-brand-200 group-hover:bg-brand-600/80 group-hover:text-white dark:bg-brand-700/30 dark:text-brand-400"
+              : "bg-cream-200 text-zinc-500 hover:bg-cream-300 group-hover:bg-white/20 group-hover:text-white dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700"
           }`}
           aria-label={item.liked ? "Unlike" : "Like"}
         >
@@ -90,7 +114,7 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
         <button
           onClick={() => addToCart.mutate({ itemId: item.id })}
           disabled={addToCart.isPending}
-          className="rounded-full bg-zinc-900 px-3 py-1 text-sm font-medium text-cream-50 transition hover:bg-zinc-700 disabled:opacity-50 dark:bg-cream-100 dark:text-zinc-900 dark:hover:bg-cream-200"
+          className="rounded-full bg-zinc-900 px-3 py-1 text-sm font-medium text-cream-50 transition hover:bg-zinc-700 disabled:opacity-50 group-hover:bg-white group-hover:text-zinc-900 dark:bg-cream-100 dark:text-zinc-900 dark:hover:bg-cream-200"
         >
           + Add
         </button>

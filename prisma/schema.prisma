@@ -94,15 +94,25 @@ model MenuCategory {
 }
 
 model MenuItem {
-  id          String         @id @default(cuid())
+  id          String          @id @default(cuid())
   name        String
   description String?
   price       Float
   categoryId  String
-  category    MenuCategory   @relation(fields: [categoryId], references: [id])
+  category    MenuCategory    @relation(fields: [categoryId], references: [id])
   likes       MenuItemLike[]
   cartItems   CartItem[]
-  createdAt   DateTime       @default(now())
+  assets      MenuItemAsset[]
+  createdAt   DateTime        @default(now())
+}
+
+model MenuItemAsset {
+  id         String   @id @default(cuid())
+  url        String
+  featured   Boolean  @default(false)
+  menuItemId String
+  item       MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
 }
 
 model MenuItemLike {

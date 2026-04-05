@@ -28,3 +28,13 @@ export const { trpc: api, HydrateClient } = createHydrationHelpers<AppRouter>(
   caller,
   getQueryClient,
 );
+
+/** Prefetch a single menu item for RSC hydration. */
+export async function prefetchMenuItemById(id: string) {
+  const queryClient = getQueryClient();
+  const fetchItem = () => caller.menu.getById({ id });
+  await queryClient.prefetchQuery({
+    queryKey: [["menu", "getById"], { input: { id }, type: "query" }],
+    queryFn: fetchItem as () => Promise<unknown>,
+  });
+}
