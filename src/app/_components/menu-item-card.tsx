@@ -35,7 +35,12 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
     onError: (_err, _vars, context) => {
       if (context?.prev) utils.menu.getAll.setData(undefined, context.prev);
     },
-    onSettled: () => utils.menu.getAll.invalidate(),
+    onSettled: async () => {
+      await Promise.all([
+        utils.menu.getAll.invalidate(),
+        utils.menu.getPoints.invalidate(),
+      ]);
+    },
   });
 
   return (

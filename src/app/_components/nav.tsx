@@ -12,7 +12,7 @@ export async function Nav() {
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
         <div className="flex items-center gap-6">
           <Link href="/" className="font-bold text-zinc-900 dark:text-white">
-            Coffee Shop
+            The Steel Mug
           </Link>
           <Link
             href="/menu"
