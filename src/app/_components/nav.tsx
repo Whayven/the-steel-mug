@@ -25,6 +25,12 @@ export async function Nav() {
           >
             Menu
           </Link>
+          <Link
+            href="/about"
+            className="text-sm font-medium uppercase tracking-widest text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-white"
+          >
+            About
+          </Link>
         </div>
 
         <div className="flex items-center gap-4">
