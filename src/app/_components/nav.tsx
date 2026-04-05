@@ -26,6 +26,12 @@ export async function Nav() {
             Menu
           </Link>
           <Link
+            href="/events"
+            className="text-sm font-medium uppercase tracking-widest text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-white"
+          >
+            Events
+          </Link>
+          <Link
             href="/about"
             className="text-sm font-medium uppercase tracking-widest text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-white"
           >
